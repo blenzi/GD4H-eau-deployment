@@ -1,0 +1,26 @@
+shiny:
+  image:
+    repository: registry.gitlab-forge.din.developpement-durable.gouv.fr/dreal-normandie/pole-renovation-energetique/prelshiny_golem
+    imagePullPolicy: Always
+    tag: dev
+  imagePullSecrets:
+  - name: regcred
+  ingress:
+    enabled: true
+    hostname: prel-dev.lab.sspcloud.fr
+  s3:
+    enabled: false
+    existingSecret: myshinyapp-s3
+  postgresql:
+    enabled: false
+    auth:
+      username: myusername
+      database: defaultdb
+      existingSecret: myshinyapp-postgresql
+    containerPorts:
+      postgresql: 5432
+    fullnameOverride: postgresql-db
+    primary:
+      persistence:
+        size: 2Gi
+  
