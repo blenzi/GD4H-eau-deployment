@@ -2,12 +2,12 @@ shiny:
   image:
     repository: registry.gitlab-forge.din.developpement-durable.gouv.fr/dreal-normandie/pole-renovation-energetique/prelshiny_golem
     imagePullPolicy: Always
-    tag: dev
+    tag: main
   imagePullSecrets:
   - name: regcred
   ingress:
     enabled: true
-    hostname: prel-dev.lab.sspcloud.fr
+    hostname: prel.lab.sspcloud.fr
   s3:
     enabled: false
     existingSecret: myshinyapp-s3
