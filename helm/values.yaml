@@ -1,7 +1,7 @@
 shiny:
   image:
     repository: registry.gitlab-forge.din.developpement-durable.gouv.fr/dreal-normandie/pole-renovation-energetique/prelshiny_golem
-    imagePullPolicy: Always
+    pullPolicy: Always
     tag: main
   imagePullSecrets:
   - name: regcred
