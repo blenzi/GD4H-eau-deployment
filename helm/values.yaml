@@ -3,6 +3,7 @@ shiny:
     repository: blenzi/gd4h-eau
     pullPolicy: Always
     tag: latest
+    containerPort: 8501
   ingress:
     enabled: true
     hostname: gd4h-eau.lab.sspcloud.fr
