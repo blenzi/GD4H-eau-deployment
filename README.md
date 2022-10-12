@@ -27,11 +27,12 @@ kubectl create secret generic geoapi-key --from-literal=GEOAPI_KEY=$GEOAPI_KEY
 Depuis la racine du _package_ :
 
 ```shell
+helm dependency build helm/
 helm install gd4h-eau helm/
 ```
 
 Pour mettre à jour l'image utilisée (faut avoir `imagePullPolicy: Always` dans `values.yaml`):
 
 ```shell
-kubectl rollout restart deployment gd4h-eau
+kubectl rollout restart deployment gd4h-eau-shiny
 ```
