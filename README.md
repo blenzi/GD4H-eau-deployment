@@ -1,6 +1,6 @@
-# Déploiement de l'application Prelshiny Golem
+# Déploiement de l'application GD4H eau
 
-Ce dépot permet le déploiement l'application [Prelshiny Golem](https://gitlab-forge.din.developpement-durable.gouv.fr/dreal-normandie/pole-renovation-energetique/prelshiny_golem) sur un cluster Kubernetes. La configuration présentée est spécifiquement adaptée au [SSP Cloud](https://datalab.sspcloud.fr/home).
+Ce dépot permet le déploiement l'application [GD4H eau](https://github.com/blenzi/GD4H_eau).
 
 #### Chart Helm
 
@@ -13,17 +13,13 @@ Le fichier `values.yaml` contient précisément les valeurs que l'on modifie par
 - le tag de l'image, i.e. sa version (paramètre `shiny.image.tag`)
 - l'hostname de l'Ingress l'URL à laquelle l'application sera accessible une fois déployée (paramètre `shiny.ingress.hostname`)
 
-La branche `main` de ce package correspond au déploiement de la branche `main` de [Prelshiny Golem](https://gitlab-forge.din.developpement-durable.gouv.fr/dreal-normandie/pole-renovation-energetique/prelshiny_golem), sur https://prel.lab.sspcloud.fr/ et de manière analogue la branche `dev` est déployée sur https://prel-dev.lab.sspcloud.fr/.
+### Token GEOAPIFY
 
-### Récupération de l'image docker
+La recherche d'adresse utilise le service [GEOAPIFY](https://www.geoapify.com/geocoding-api). 
+Cela nécessite un _token_, stocké comme secret kubernetes, déclaré dans `values.yaml`, et défini via:
 
-L'image docker de [Prelshiny Golem](https://gitlab-forge.din.developpement-durable.gouv.fr/dreal-normandie/pole-renovation-energetique/prelshiny_golem) est générée automatiquement par gitlab et stockée sur le registre du ministère (registry.gitlab-forge.din.developpement-durable.gouv.fr). Pour la récupérée il faut une autentification via un token de groupe, crée sur le dépôt gitlab et gardé en tant que secret kubernetes en utilisant [cette recette](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-secret-by-providing-credentials-on-the-command-line). Le nom d'utilisateur correspond au nom du token et le mot de passe à sa valeur.
-
-Ensuite la configuration de déploiement (`values.yaml`) contient la référence au secret:
-
-```yaml
-imagePullSecrets:
-  - name: regcred
+```shell
+kubectl create secret generic geoapi-key --from-literal=GEOAPI_KEY=$GEOAPI_KEY
 ```
 
 ### Déploiement avec helm
@@ -31,11 +27,11 @@ imagePullSecrets:
 Depuis la racine du _package_ :
 
 ```shell
-helm install prel-dev helm/  # ou prel
+helm install gd4h-eau helm/
 ```
 
 Pour mettre à jour l'image utilisée (faut avoir `imagePullPolicy: Always` dans `values.yaml`):
 
 ```shell
-kubectl rollout restart deployment prel-dev
+kubectl rollout restart deployment gd4h-eau
 ```

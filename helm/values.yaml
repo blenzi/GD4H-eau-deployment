@@ -1,35 +1,16 @@
 shiny:
   image:
-    repository: registry.gitlab-forge.din.developpement-durable.gouv.fr/dreal-normandie/pole-renovation-energetique/prelshiny_golem
+    repository: blenzi/gd4h-eau
     pullPolicy: Always
-    tag: main
-  imagePullSecrets:
-  - name: regcred
+    tag: latest
   ingress:
     enabled: true
-    hostname: prel.lab.sspcloud.fr
-  probe:
-    enabled: true
-    probeValue:
-        livenessProbe:
-          timeoutSeconds: 10
-        readinessProbe:
-          timeoutSeconds: 10
-        startupProbe:
-          timeoutSeconds: 10  
+    hostname: gd4h-eau.lab.sspcloud.fr
   s3:
-    enabled: false
+    enabled: true
     existingSecret: myshinyapp-s3
-  postgresql:
-    enabled: false
-    auth:
-      username: myusername
-      database: defaultdb
-      existingSecret: myshinyapp-postgresql
-    containerPorts:
-      postgresql: 5432
-    fullnameOverride: postgresql-db
-    primary:
-      persistence:
-        size: 2Gi
-  
+  env:
+    - name: GEOAPI_KEY
+      valueFrom:
+        secretKeyRef:
+          name: geoapi-key
