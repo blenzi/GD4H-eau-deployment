@@ -2,7 +2,7 @@ shiny:
   image:
     repository: blenzi/gd4h-eau
     pullPolicy: Always
-    tag: latest
+    tag: main
     containerPort: 8501
   ingress:
     enabled: true
