@@ -16,10 +16,10 @@ Le fichier `values.yaml` contient précisément les valeurs que l'on modifie par
 ### Token GEOAPIFY
 
 La recherche d'adresse utilise le service [GEOAPIFY](https://www.geoapify.com/geocoding-api). 
-Cela nécessite un _token_, stocké comme secret kubernetes, déclaré dans `values.yaml`, et défini via:
+Cela nécessite un _token_, stocké comme secret kubernetes, déclaré dans `values.yaml`, et défini [via](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#define-a-container-environment-variable-with-data-from-a-single-secret):
 
 ```shell
-kubectl create secret generic geoapi-key --from-literal=GEOAPI_KEY=$GEOAPI_KEY
+kubectl create secret generic geoapi-key --from-literal=geoapi-token=$GEOAPI_KEY
 ```
 
 ### Déploiement avec helm
