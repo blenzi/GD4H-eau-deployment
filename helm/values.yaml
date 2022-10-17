@@ -9,7 +9,7 @@ shiny:
     hostname: gd4h-eau.lab.sspcloud.fr
   s3:
     enabled: true
-    existingSecret: myshinyapp-s3
+    existingSecret: app-s3
   env:
     - name: GEOAPI_KEY
       valueFrom:
